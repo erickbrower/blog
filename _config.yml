@@ -1,0 +1,11 @@
+# Site settings
+title: erickbrower.com
+email: cerickbrower@gmail.com
+description: "I'm Erick Brower. I live in the SF Bay area and write code."
+baseurl: ""
+url: "http://erickbrower.com"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+highlighter: rouge
