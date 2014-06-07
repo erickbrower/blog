@@ -2,13 +2,24 @@ var Metalsmith = require('metalsmith'),
     markdown = require('metalsmith-markdown'),
     templates = require('metalsmith-templates'),
     permalinks = require('metalsmith-permalinks'),
-    Handlebars = require('handlebars'),
     collections = require('metalsmith-collections'),
+    Handlebars = require('handlebars'),
     fs = require('fs'),
     path = require('path');
 
+var testy = function testy(files, metalsmith, done) {
+    console.log(files);
+    done();
+};
+
 var forge = function forge() {
     Metalsmith(__dirname)
+        .metadata({
+            headline: 'erickbrower',
+            tagline: 'I write code. A lot.',
+            author: 'Erick Brower <cerickbrower@gmail.com>',
+            description: 'My personal blog. @erickbrower'
+        })
         .use(collections({
             pages: {
                 pattern: 'content/pages/*.md'
@@ -42,11 +53,26 @@ var parallel = function parallel(callbacks, last) {
 };
 
 var registerPartial = function registerPartial(name, filePath, next) {
-    var contents = fs.readFile(filePath, function (err, data) {
+    fs.readFile(filePath, function (err, data) {
         Handlebars.registerPartial(name, data.toString());
         next();
     });
 };
+
+var registerHelpers = function registerHelpers() {
+    Handlebars.registerHelper('limit', function (collection, limit, start) {
+        var out = [], i, c;
+        start = start || 0;
+        for (i = c = 0; i < collection.length; i++) {
+            if (i >= start && c < limit + 1) {
+                out.push(collection[i]);
+                c++;
+            }
+        }
+        return out;
+    });
+};
+
 
 var partialsDir = path.resolve(__dirname, 'templates', 'partials');
 
@@ -59,5 +85,8 @@ fs.readdir(partialsDir, function read(err, files) {
             registerPartial(name, filePath, next);
         });
     });
-    parallel(registrations, forge);
+    parallel(registrations, function () {
+        registerHelpers();
+        forge();
+    });
 });
