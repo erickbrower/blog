@@ -6,10 +6,31 @@ var metalsmith = require('metalsmith'),
     Handlebars = require('handlebars'),
     fs = require('fs'),
     path = require('path'),
+    lunr = require('lunr'),
     _ = require('lodash');
+
+var lunrIndexer = function lunrIndexer(files, metalsmith, done) {
+    var idx = lunr(function() {
+        this.field('title', { boost: 10 });
+        this.field('body');
+    });
+    _.each(files, function index(file) {
+        if (file.collection === 'posts') {
+            file.body = file.contents.toString();
+            idx.add(file);
+        }
+    });
+    files['data/posts_idx.json'] = { 
+        contents: new Buffer(JSON.stringify(idx)),
+        mode: '0644'
+    };
+    setImmediate(done);
+};
+
 
 var forge = function forge() {
     metalsmith(__dirname)
+        .use(lunrIndexer)
         .metadata({
             headline: 'erickbrower',
             tagline: 'I write code. A lot.',
