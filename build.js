@@ -1,19 +1,15 @@
-var Metalsmith = require('metalsmith'),
+var metalsmith = require('metalsmith'),
     markdown = require('metalsmith-markdown'),
     templates = require('metalsmith-templates'),
     permalinks = require('metalsmith-permalinks'),
     collections = require('metalsmith-collections'),
     Handlebars = require('handlebars'),
     fs = require('fs'),
-    path = require('path');
-
-var testy = function testy(files, metalsmith, done) {
-    console.log(files);
-    done();
-};
+    path = require('path'),
+    _ = require('lodash');
 
 var forge = function forge() {
-    Metalsmith(__dirname)
+    metalsmith(__dirname)
         .metadata({
             headline: 'erickbrower',
             tagline: 'I write code. A lot.',
@@ -42,8 +38,8 @@ var forge = function forge() {
 
 var parallel = function parallel(callbacks, last) {
     var count = callbacks.length;
-    callbacks.forEach(function (callback) {
-        callback(function () {
+    _.each(callbacks, function(cb) {
+        cb(function() {
             count--;
             if (count === 0) {
                 last();
@@ -52,41 +48,44 @@ var parallel = function parallel(callbacks, last) {
     });
 };
 
-var registerPartial = function registerPartial(name, filePath, next) {
-    fs.readFile(filePath, function (err, data) {
+var partialsDir = path.resolve(__dirname, 'templates', 'partials');
+
+var registerPartialFile = function registerPartialFile(name, filePath, next) {
+    fs.readFile(filePath, function(err, data) {
         Handlebars.registerPartial(name, data.toString());
         next();
     });
 };
 
+var registerPartialFiles = function registerPartialFiles(files, next) {
+    var stage = function stage(file) {
+        var name = file.replace(/[w+]*.hbt$/, ''),
+            filePath = path.resolve(partialsDir, file);
+        return function(next) {
+            registerPartialFile(name, filePath, next);
+        };
+    };
+    parallel(_.map(files, stage), next);
+};
+
+var registerPartials = function registerPartials(next) {
+    fs.readdir(partialsDir, function read(err, files) {
+        registerPartialFiles(files, next);
+    });
+};
+
 var registerHelpers = function registerHelpers() {
-    Handlebars.registerHelper('limit', function (collection, limit, start) {
-        var out = [], i, c;
-        start = start || 0;
-        for (i = c = 0; i < collection.length; i++) {
-            if (i >= start && c < limit + 1) {
-                out.push(collection[i]);
-                c++;
-            }
-        }
+    Handlebars.registerHelper('top', function top(collection, options) {
+        var out = '',
+            newest = _.first(collection, 3);
+        _.each(newest, function(item) {
+            out += options.fn(item);
+        });
         return out;
     });
 };
 
-
-var partialsDir = path.resolve(__dirname, 'templates', 'partials');
-
-fs.readdir(partialsDir, function read(err, files) {
-    var registrations = [];
-    files.forEach(function queue(file) {
-        var name = file.replace(/[w+]*.hbt$/, ''),
-            filePath = path.resolve(partialsDir, file);
-        registrations.push(function (next) {
-            registerPartial(name, filePath, next);
-        });
-    });
-    parallel(registrations, function () {
-        registerHelpers();
-        forge();
-    });
+registerPartials(function run() {
+    registerHelpers();
+    forge();
 });
