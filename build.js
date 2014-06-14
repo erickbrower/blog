@@ -5,46 +5,11 @@ var Metalsmith = require('metalsmith'),
     collections = require('metalsmith-collections'),
     async = require('async'),
     Handlebars = require('handlebars'),
-    fs = require('fs'),
-    path = require('path'),
-    lunr = require('lunr'),
-    _ = require('lodash');
+    plugins = require('./lib/plugins'),
+    helpers = require('./lib/helpers'),
+    partials = require('./lib/partials');
 
-var bodyParser = function bodyParser(files, metalsmith, done) {
-    var isPost = function isPost(file) {
-        return file.collection === 'posts';
-    };
-    _.each(Object.keys(files), function (file) {
-        if (isPost(files[file])) {
-            var data = files[file];
-            data.body = data.contents.toString();
-            delete files[file];
-            files[file] = data;
-        }
-    });
-    setImmediate(done);
-};
-
-var lunrIndexer = function lunrIndexer(files, metalsmith, done) {
-    var idx = lunr(function () {
-        this.field('title', { boost: 10 });
-        this.field('body');
-        this.ref('path');
-    });
-    _.each(files, function index(file) {
-        if (file.collection === 'posts') {
-            idx.add(file);
-        }
-    });
-    var serialized = JSON.stringify(idx.toJSON());
-    files['data/posts_idx.json'] = {
-        contents: new Buffer(serialized),
-        mode: '0644'
-    };
-    setImmediate(done);
-};
-
-var forge = function forge() {
+function forge() {
     new Metalsmith(__dirname)
         .metadata({
             headline: 'erickbrower',
@@ -54,7 +19,7 @@ var forge = function forge() {
         })
         .source('./src')
         .destination('./build')
-        .use(bodyParser)
+        .use(plugins.bodyParser)
         .use(collections({
             posts: {
                 pattern: 'content/posts/*.md',
@@ -65,48 +30,15 @@ var forge = function forge() {
         .use(markdown())
         .use(templates('handlebars'))
         .use(permalinks(':collection/:title'))
-        .use(lunrIndexer)
+        .use(plugins.lunrIndexer)
         .build();
-};
+}
 
-var partialsDir = path.resolve(__dirname, 'templates', 'partials');
-
-var registerPartialFile = function registerPartialFile(name, filePath, next) {
-    fs.readFile(filePath, function (err, data) {
-        Handlebars.registerPartial(name, data.toString());
-        next();
-    });
-};
-
-var registerPartialFiles = function registerPartialFiles(files, next) {
-    var stage = function stage(file) {
-        var name = file.replace(/[w+]*.hbt$/, ''),
-            filePath = path.resolve(partialsDir, file);
-        return function (next) {
-            registerPartialFile(name, filePath, next);
-        };
-    };
-    async.parallel(_.map(files, stage), next);
-};
-
-var registerPartials = function registerPartials(next) {
-    fs.readdir(partialsDir, function read(err, files) {
-        registerPartialFiles(files, next);
-    });
-};
-
-var registerHelpers = function registerHelpers() {
-    Handlebars.registerHelper('top', function top(collection, options) {
-        var out = '',
-            newest = _.first(collection, 3);
-        _.each(newest, function (item) {
-            out += options.fn(item);
-        });
-        return out;
-    });
-};
-
-registerPartials(function run() {
-    registerHelpers();
-    forge();
-});
+async.series([
+    function(next) {
+        partials.register(Handlebars, next);
+    },
+    function(next) {
+        helpers.register(Handlebars, next);
+    }
+], forge);
