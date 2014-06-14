@@ -1,6 +1,7 @@
 ---
 title: A Quick Node.js Primer
 collection: posts
+template: post.hbt
 date: 2014-06-03
 ---
 

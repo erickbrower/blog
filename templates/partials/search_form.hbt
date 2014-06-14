@@ -1,0 +1,8 @@
+<form class='form-inline' id='search-form' role='form'>
+    <div class='form-group'>
+        <label class='sr-only' for='search-input'>Search</label>
+        <input type='text' class='form-control' id='search-input' placeholder='Search posts...' />
+    </div>
+    <button type='button' class='btn btn-sm btn-primary' id='search-btn' 
+        data-toggle='modal' data-target='#search-results-modal'>Go</button>
+</form>

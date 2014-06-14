@@ -3,11 +3,11 @@ var Metalsmith = require('metalsmith'),
     templates = require('metalsmith-templates'),
     permalinks = require('metalsmith-permalinks'),
     collections = require('metalsmith-collections'),
-    async = require('async'),
-    Handlebars = require('handlebars'),
     plugins = require('./lib/plugins'),
     helpers = require('./lib/helpers'),
-    partials = require('./lib/partials');
+    partials = require('./lib/partials'),
+    Handlebars = require('handlebars'),
+    async = require('async');
 
 function forge() {
     new Metalsmith(__dirname)
@@ -17,24 +17,28 @@ function forge() {
             author: 'Erick Brower <cerickbrower@gmail.com>',
             description: 'My personal blog. @erickbrower'
         })
-        .source('./src')
+        .source('./src/app')
         .destination('./build')
         .use(plugins.bodyParser)
         .use(collections({
             posts: {
-                pattern: 'content/posts/*.md',
+                pattern: 'app/content/posts/*.md',
                 sortBy: 'date',
                 reverse: true
+            },
+            pages: {
+                pattern: 'app/content/pages/*.md',
+                sortBy: 'title'
             }
         }))
         .use(markdown())
-        .use(templates('handlebars'))
         .use(permalinks(':collection/:title'))
+        .use(templates('handlebars'))
         .use(plugins.lunrIndexer)
         .build();
 }
 
-async.series([
+async.parallel([
     function(next) {
         partials.register(Handlebars, next);
     },
