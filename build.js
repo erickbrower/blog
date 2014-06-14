@@ -17,17 +17,17 @@ function forge() {
             author: 'Erick Brower <cerickbrower@gmail.com>',
             description: 'My personal blog. @erickbrower'
         })
-        .source('./src/app')
+        .source('./src')
         .destination('./build')
         .use(plugins.bodyParser)
         .use(collections({
             posts: {
-                pattern: 'app/content/posts/*.md',
+                pattern: 'content/posts/*.md',
                 sortBy: 'date',
                 reverse: true
             },
             pages: {
-                pattern: 'app/content/pages/*.md',
+                pattern: 'content/pages/*.md',
                 sortBy: 'title'
             }
         }))
@@ -35,6 +35,7 @@ function forge() {
         .use(permalinks(':collection/:title'))
         .use(templates('handlebars'))
         .use(plugins.lunrIndexer)
+        .use(plugins.jsonWriter)
         .build();
 }
 

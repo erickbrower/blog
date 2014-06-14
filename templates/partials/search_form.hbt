@@ -4,5 +4,5 @@
         <input type='text' class='form-control' id='search-input' placeholder='Search posts...' />
     </div>
     <button type='button' class='btn btn-sm btn-primary' id='search-btn' 
-        data-toggle='modal' data-target='#search-results-modal'>Go</button>
+        data-toggle='modal' data-target='#search-results'>Go</button>
 </form>

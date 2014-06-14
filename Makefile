@@ -10,3 +10,5 @@ build: build.js
 deploy: install build bower
 
 .PHONY: build
+
+.DEFAULT: deploy

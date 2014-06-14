@@ -3,8 +3,9 @@
 requirejs.config({
   baseUrl: 'bower_components',
   paths: {
-    'component': '../js/component',
-    'page': '../js/page'
+    'components': '../js/components',
+    'page': '../js/page',
+    'lunr': '../js/lunr.min'
   }
 });
 
@@ -14,7 +15,9 @@ require(
     'flight/lib/registry',
     'flight/lib/advice',
     'flight/lib/logger',
-    'flight/lib/debug'
+    'flight/lib/debug',
+    'depot/depot',
+    'lunr'
   ],
 
   function(compose, registry, advice, withLogging, debug) {
