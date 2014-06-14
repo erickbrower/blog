@@ -3,6 +3,7 @@ var Metalsmith = require('metalsmith'),
     templates = require('metalsmith-templates'),
     permalinks = require('metalsmith-permalinks'),
     collections = require('metalsmith-collections'),
+    async = require('async'),
     Handlebars = require('handlebars'),
     fs = require('fs'),
     path = require('path'),
@@ -68,18 +69,6 @@ var forge = function forge() {
         .build();
 };
 
-var parallel = function parallel(callbacks, last) {
-    var count = callbacks.length;
-    _.each(callbacks, function (cb) {
-        cb(function () {
-            count--;
-            if (count === 0) {
-                last();
-            }
-        });
-    });
-};
-
 var partialsDir = path.resolve(__dirname, 'templates', 'partials');
 
 var registerPartialFile = function registerPartialFile(name, filePath, next) {
@@ -97,7 +86,7 @@ var registerPartialFiles = function registerPartialFiles(files, next) {
             registerPartialFile(name, filePath, next);
         };
     };
-    parallel(_.map(files, stage), next);
+    async.parallel(_.map(files, stage), next);
 };
 
 var registerPartials = function registerPartials(next) {
