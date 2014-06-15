@@ -1,12 +1,15 @@
 define(function(require) {
 
-    var searchForm = require('components/search_form'),
-        searchResults = require('components/search_results');
+    var searchForm = require('components_ui/search_form'),
+        searchResults = require('components_ui/search_results'),
+        searchIndex = require('components_data/search_index'),
+        postsMetadata = require('components_data/posts_metadata');
 
     return initialize;
 
     function initialize() {
-        // MyComponent.attachTo(document);
+        searchIndex.attachTo(document);
+        postsMetadata.attachTo(document);
         searchForm.attachTo('#search-form');
         searchResults.attachTo('#search-results');
     }

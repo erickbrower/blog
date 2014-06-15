@@ -3,9 +3,17 @@
 requirejs.config({
   baseUrl: 'bower_components',
   paths: {
-    'components': '../js/components',
+    'components_ui': '../js/components_ui',
+    'components_data': '../js/components_data',
     'page': '../js/page',
-    'lunr': '../js/lunr.min'
+    'lunr': '../js/lunr.min',
+    'async': '../js/async',
+    'handlebars': '../js/handlebars'
+  },
+  shim: {
+      'handlebars': {
+          'exports': 'Handlebars'
+      }
   }
 });
 
@@ -15,9 +23,7 @@ require(
     'flight/lib/registry',
     'flight/lib/advice',
     'flight/lib/logger',
-    'flight/lib/debug',
-    'depot/depot',
-    'lunr'
+    'flight/lib/debug'
   ],
 
   function(compose, registry, advice, withLogging, debug) {

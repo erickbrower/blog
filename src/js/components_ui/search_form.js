@@ -1,7 +1,6 @@
 define(function(require) {
     var defineComponent = require('flight/lib/component');
 
-    // define the component
     return defineComponent(searchForm);
 
     function searchForm() {
