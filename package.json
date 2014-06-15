@@ -1,39 +1,40 @@
 {
-    "name": "blog",
-    "version": "0.0.0",
-    "description": "My personal blog",
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:erickbrower/blog.git"
-    },
-    "author": "Erick Brower",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/erickbrower/blog/issues"
-    },
-    "homepage": "https://github.com/erickbrower/blog",
-    "dependencies": {
-        "async": "^0.9.0",
-        "datejs": "^1.0.0-rc1",
-        "debug": "^0.8.1",
-        "handlebars": "^2.0.0-alpha.4",
-        "lodash": "^2.4.1",
-        "lunr": "^0.5.3",
-        "metalsmith": "^0.8.0",
-        "metalsmith-collections": "^0.4.1",
-        "metalsmith-drafts": "0.0.1",
-        "metalsmith-less": "^0.1.1",
-        "metalsmith-markdown": "^0.2.1",
-        "metalsmith-metadata": "0.0.1",
-        "metalsmith-paginate": "^0.2.1",
-        "metalsmith-permalinks": "^0.3.0",
-        "metalsmith-templates": "^0.5.0"
-    },
-    "devDependencies": {
-        "debug": "^0.8.1",
-        "express": "^4.4.0",
-        "morgan": "^1.1.1",
-        "serve-favicon": "^2.0.0"
-    }
+  "name": "blog",
+  "version": "0.0.0",
+  "description": "My personal blog",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:erickbrower/blog.git"
+  },
+  "author": "Erick Brower",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erickbrower/blog/issues"
+  },
+  "homepage": "https://github.com/erickbrower/blog",
+  "dependencies": {
+    "async": "^0.9.0",
+    "datejs": "^1.0.0-rc1",
+    "debug": "^0.8.1",
+    "handlebars": "^2.0.0-alpha.4",
+    "lodash": "^2.4.1",
+    "lunr": "^0.5.3",
+    "metalsmith": "^0.8.0",
+    "metalsmith-collections": "^0.4.1",
+    "metalsmith-drafts": "0.0.1",
+    "metalsmith-ignore": "^0.1.2",
+    "metalsmith-less": "^0.1.1",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-metadata": "0.0.1",
+    "metalsmith-paginate": "^0.2.1",
+    "metalsmith-permalinks": "^0.3.0",
+    "metalsmith-templates": "^0.5.0"
+  },
+  "devDependencies": {
+    "debug": "^0.8.1",
+    "express": "^4.4.0",
+    "morgan": "^1.1.1",
+    "serve-favicon": "^2.0.0"
+  }
 }

@@ -3,6 +3,7 @@ var Metalsmith = require('metalsmith'),
     templates = require('metalsmith-templates'),
     permalinks = require('metalsmith-permalinks'),
     collections = require('metalsmith-collections'),
+    ignore = require('metalsmith-ignore'),
     plugins = require('./lib/plugins'),
     helpers = require('./lib/helpers'),
     partials = require('./lib/partials'),
@@ -19,6 +20,7 @@ function forge() {
         })
         .source('./src')
         .destination('./build')
+        .use(ignore('drafts/*'))
         .use(plugins.bodyParser)
         .use(plugins.dateFormatter)
         .use(collections({
@@ -40,7 +42,7 @@ function forge() {
         .build();
 }
 
-async.series([
+async.parallel([
     function(next) {
         partials.register(Handlebars, next);
     },
