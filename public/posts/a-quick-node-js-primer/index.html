@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>erickbrower&#x27;s blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+<div class="blog-header">
+  <h1 class="blog-title"><a href='/' style='color: black; text-decoration: none;'>erickbrower</a></h1>
+    <p class="lead blog-description">I write code. A lot.</p>
+</div>
+
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            <div class="blog-post">
+    <h2 class="blog-post-title">
+		<a href="/posts/a-quick-node-js-primer" rel="bookmark">A Quick Node.js Primer</a>
+	</h2>
+
+    <p class="blog-post-meta">Monday, June 2, 2014 by <a href="/pages/about">Erick</a></p>
+
+	<p>I&#39;ve been writing tons of javascript on Node.js lately, and along the way I&#39;ve found some great learning resources. 
+If you&#39;re an experienced dev and want to get up to speed fast, check these out:</p>
+<hr>
+
+<h3 id="reading-material">Reading Material</h3>
+<ul>
+<li><a href="http://book.mixu.net/node/ch1.html">Mixu&#39;s Node Book</a> </li>
+<li>Particularly his chapter on <a href="http://book.mixu.net/node/ch7.html">control flow</a></li>
+<li>And his <a href="http://blog.mixu.net/2011/02/02/essential-node-js-patterns-and-snippets/">blog post</a> on patterns</li>
+<li><a href="http://www.amazon.com/JavaScript-Good-Parts-ebook/dp/B00IG20OBY">Javascript - The Good Parts</a>. The best $10 you&#39;ll ever spend, period.</li>
+<li><a href="http://nodejs.org/api/">Node.js API Docs</a> - These are not your typical API docs, they are actually not a bad read. Complete with code examples</li>
+<li><a href="http://www.joyent.com/developers/node/deploy">Node.js Production Practices</a></li>
+</ul>
+<h3 id="read-the-source-code-popular-projects">Read the Source Code - Popular Projects</h3>
+<ul>
+<li><a href="https://github.com/visionmedia/express">Express.js</a> - Think <a href="http://www.sinatrarb.com/">Sinatra</a>, in Javascript.</li>
+<li><a href="https://github.com/gruntjs/grunt">Grunt.js</a> - Task runner, fits the same role as Rake or Thor in a Rails project</li>
+<li><a href="https://github.com/visionmedia/mocha">Mocha</a> - Testing library</li>
+<li><a href="https://github.com/segmentio/metalsmith">Metalsmith</a> - Awesome DIY static site generator</li>
+</ul>
+
+	<br>
+</div>
+<!-- /.blog-post -->
+
+        </div>
+        <!-- /.blog-main -->
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+        <form class='form-inline' id='search-form' role='form'>
+    <div class='form-group'>
+        <label class='sr-only' for='search-input'>Search</label>
+        <input type='text' class='form-control' id='search-input' placeholder='Search posts...' />
+    </div>
+    <button type='button' class='btn btn-sm btn-primary' id='search-btn'>Go</button>
+</form>
+
+    </div>
+    <div class="sidebar-module">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+            <li><a href="http://github.com/erickbrower">GitHub</a></li>
+            <li><a href="http://twitter.com/erickbrower">Twitter</a></li>
+        </ol>
+    </div>
+</div>
+<!-- /.blog-sidebar -->
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+<div id='search-results' class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Search Results</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a
+            href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>
+        <a href="#">Back to top</a>
+    </p>
+</div>
+<!-- JavaScripts
+================================================== -->
+<script src='/bower_components/es5-shim/es5-shim.js'></script>
+<script src='/bower_components/es5-shim/es5-sham.js'></script>
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+<script src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
+<script data-main='/js/main' src='/bower_components/requirejs/require.js'></script>
+</body>
+</html>
+

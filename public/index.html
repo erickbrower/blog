@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>erickbrower&#x27;s blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+<div class="blog-header">
+  <h1 class="blog-title"><a href='/' style='color: black; text-decoration: none;'>erickbrower</a></h1>
+    <p class="lead blog-description">I write code. A lot.</p>
+</div>
+
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+			
+				<div class="blog-post">
+    <h2 class="blog-post-title">
+		<a href="/posts/a-quick-node-js-primer" rel="bookmark">A Quick Node.js Primer</a>
+	</h2>
+
+    <p class="blog-post-meta">Monday, June 2, 2014 by <a href="/pages/about">Erick</a></p>
+
+	<p>I&#39;ve been writing tons of javascript on Node.js lately, and along the way I&#39;ve found some great learning resources. 
+If you&#39;re an experienced dev and want to get up to speed fast, check these out:</p>
+<hr>
+
+<h3 id="reading-material">Reading Material</h3>
+<ul>
+<li><a href="http://book.mixu.net/node/ch1.html">Mixu&#39;s Node Book</a> </li>
+<li>Particularly his chapter on <a href="http://book.mixu.net/node/ch7.html">control flow</a></li>
+<li>And his <a href="http://blog.mixu.net/2011/02/02/essential-node-js-patterns-and-snippets/">blog post</a> on patterns</li>
+<li><a href="http://www.amazon.com/JavaScript-Good-Parts-ebook/dp/B00IG20OBY">Javascript - The Good Parts</a>. The best $10 you&#39;ll ever spend, period.</li>
+<li><a href="http://nodejs.org/api/">Node.js API Docs</a> - These are not your typical API docs, they are actually not a bad read. Complete with code examples</li>
+<li><a href="http://www.joyent.com/developers/node/deploy">Node.js Production Practices</a></li>
+</ul>
+<h3 id="read-the-source-code-popular-projects">Read the Source Code - Popular Projects</h3>
+<ul>
+<li><a href="https://github.com/visionmedia/express">Express.js</a> - Think <a href="http://www.sinatrarb.com/">Sinatra</a>, in Javascript.</li>
+<li><a href="https://github.com/gruntjs/grunt">Grunt.js</a> - Task runner, fits the same role as Rake or Thor in a Rails project</li>
+<li><a href="https://github.com/visionmedia/mocha">Mocha</a> - Testing library</li>
+<li><a href="https://github.com/segmentio/metalsmith">Metalsmith</a> - Awesome DIY static site generator</li>
+</ul>
+
+	<br>
+</div>
+<!-- /.blog-post -->
+
+			
+				<div class="blog-post">
+    <h2 class="blog-post-title">
+		<a href="/posts/debugging-requests-with-socat" rel="bookmark">Debugging Requests with Socat</a>
+	</h2>
+
+    <p class="blog-post-meta">Saturday, May 31, 2014 by <a href="/pages/about">Erick</a></p>
+
+	<p>The <a href="http://linux.die.net/man/1/socat">socat</a> utility can create a &#39;proxy&#39; process that listens on a port and forwards all traffic elsewhere. It&#39;s very useful for debugging request/response between two services.</p>
+<hr>
+
+<h3 id="install-on-mac-os-x">Install on Mac OS X</h3>
+<p><code>brew install socat</code></p>
+<hr>
+
+<h3 id="an-example-docker-server-requests">An Example: Docker Server Requests</h3>
+<p>The docker server listens on port 4243 by default. If I configure the docker client to connect over port 4244 instead, I can make socat listen on 4244 and forward traffic to the real docker server at 4243, all while logging the raw data to the terminal.</p>
+<p><code>socat -v TCP-LISTEN:4244,fork TCP4:127.0.0.1:4243</code></p>
+<p>Then in another terminal window while socat is running:</p>
+<p><code>docker ps</code></p>
+<p>Take a look at socat again. Logs! So <em>that&#39;s</em> what a docker cli requests looks like. </p>
+<pre><code>&gt; 2014/05/24 19:17:06.434840  length=118 from=0 to=117
+GET /v1.11/containers/json HTTP/1.1\r
+Host: localhost:4244\r
+User-Agent: Docker-Client/0.11.1\r
+Accept-Encoding: gzip\r
+\r
+&lt; 2014/05/24 19:17:06.461093  length=2516 from=0 to=2515
+HTTP/1.1 200 OK\r
+Content-Type: application/json\r
+Date: Sun, 25 May 2014 02:17:05 GMT\r
+Transfer-Encoding: chunked\r
+\r
+800\r
+[{&quot;Command&quot;:&quot;/bin/sh -c &#39;java -jar start.jar&#39;&quot;,&quot;Created&quot;:1400968849,
+&quot;Id&quot;:&quot;c3decface4f677a4708a6251fc711c97c77c17d23b2d9267ba29e396dcc1409e&quot;,
+&quot;Image&quot;:&quot;solr_25:latest&quot;,&quot;Names&quot;:[&quot;/cocky_bartik&quot;,&quot;/nostalgic_euclid/solr_1&quot;],
+&quot;Ports&quot;:[{&quot;IP&quot;:&quot;0.0.0.0&quot;,&quot;PrivatePort&quot;:8983,&quot;PublicPort&quot;:49177,&quot;Type&quot;:&quot;tcp&quot;}],
+&quot;Status&quot;:&quot;Up 4 hours&quot;}]
+</code></pre>
+	<br>
+</div>
+<!-- /.blog-post -->
+
+			
+        </div>
+        <!-- /.blog-main -->
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+        <form class='form-inline' id='search-form' role='form'>
+    <div class='form-group'>
+        <label class='sr-only' for='search-input'>Search</label>
+        <input type='text' class='form-control' id='search-input' placeholder='Search posts...' />
+    </div>
+    <button type='button' class='btn btn-sm btn-primary' id='search-btn'>Go</button>
+</form>
+
+    </div>
+    <div class="sidebar-module">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+            <li><a href="http://github.com/erickbrower">GitHub</a></li>
+            <li><a href="http://twitter.com/erickbrower">Twitter</a></li>
+        </ol>
+    </div>
+</div>
+<!-- /.blog-sidebar -->
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+<div id='search-results' class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Search Results</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a
+            href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p>
+        <a href="#">Back to top</a>
+    </p>
+</div>
+<!-- JavaScripts
+================================================== -->
+<script src='/bower_components/es5-shim/es5-shim.js'></script>
+<script src='/bower_components/es5-shim/es5-sham.js'></script>
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+<script src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
+<script data-main='/js/main' src='/bower_components/requirejs/require.js'></script>
+</body>
+</html>
+

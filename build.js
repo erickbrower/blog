@@ -20,7 +20,7 @@ function forge() {
             description: 'My personal blog. @erickbrower'
         })
         .source('./src')
-        .destination('./build')
+        .destination('./public')
         .use(ignore('drafts/*'))
         .use(plugins.bodyParser)
         .use(plugins.dateFormatter)
