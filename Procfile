@@ -1,1 +1,1 @@
-web: bower install && node server.js
+web: make heroku && node server.js

@@ -1,14 +1,16 @@
-bower: build
-		bower install
+bower: node_modules
+		./node_modules/bower/bin/bower install
 
-install: node_modules
+deps: node_modules
 		npm install
 
 build: build.js
 		node build
 
-deploy: install build bower
+deploy: deps build bower
 
-.PHONY: build
+heroku: build bower
+
+.PHONY: build heroku deps
 
 .DEFAULT: deploy
