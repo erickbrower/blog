@@ -2,7 +2,6 @@ define(function(require) {
     var defineComponent = require('flight/lib/component'),
         Handlebars = require('handlebars');
 
-    // define the component
     return defineComponent(searchResults);
 
     function searchResults() {
