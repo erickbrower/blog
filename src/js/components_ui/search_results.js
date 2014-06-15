@@ -26,7 +26,9 @@ define(function(require) {
                         <td><a href=\'/{{ref}}\' class=\'btn btn-sm btn-default\'>Read</a></td>\
                     </tr>\
                 {{else}}\
-                    <h3>No results found!</h3>\
+                    <tr>\
+                        <td colspan=\'3\'>No posts found!</td>\
+                    </tr>\
                 {{/each}}\
                 </tbody>\
             </table>'

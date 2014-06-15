@@ -7,8 +7,8 @@ requirejs.config({
     'components_data': '/js/components_data',
     'page': '/js/page',
     'lunr': '/js/lunr.min',
-    'async': '/js/async',
-    'handlebars': '/js/handlebars'
+    'async': '/bower_components/async/lib/async',
+    'handlebars': '/bower_components/handlebars/handlebars.min'
   },
   shim: {
       'handlebars': {
