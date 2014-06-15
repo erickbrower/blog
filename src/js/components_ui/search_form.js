@@ -15,9 +15,21 @@ define(function(require) {
             this.trigger('searchSubmit', { terms: terms });
         };
 
+        this.submitOnEnterKey = function(ev) {
+            if(ev.originalEvent.keyCode === 13) {
+                ev.preventDefault();
+                this.submit();
+                console.log('THINGS');
+                $(this.attr.results).modal({ show: true });
+            }
+        };
+
         this.after('initialize', function() {
             this.on('click', {
                 button: this.submit
+            });
+            this.on('keydown', {
+                input: this.submitOnEnterKey
             });
         });
     }

@@ -1,24 +1,16 @@
 {{> head}}
-
-{{> header}}
-
 <div class="container">
-  <br>
-  <br>
+{{> header}}
     <div class="row">
-
         <div class="col-sm-8 blog-main">
-			{{> post }}
+            {{> post}}
         </div>
         <!-- /.blog-main -->
-
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-        </div>
-        <!-- /.blog-sidebar -->
+        {{> sidebar}}
     </div>
     <!-- /.row -->
 </div>
 <!-- /.container -->
+{{> search_results_modal}}
 {{> footer}}
-
 {{> foot}}

@@ -20,6 +20,7 @@ function forge() {
         .source('./src')
         .destination('./build')
         .use(plugins.bodyParser)
+        .use(plugins.dateFormatter)
         .use(collections({
             posts: {
                 pattern: 'content/posts/*.md',
@@ -39,7 +40,7 @@ function forge() {
         .build();
 }
 
-async.parallel([
+async.series([
     function(next) {
         partials.register(Handlebars, next);
     },

@@ -21,10 +21,12 @@ define(function(require) {
                 <tbody>\
                 {{#each results}}\
                     <tr>\
-                        <td><a href=\'{{ref}}\'>{{title}}</a></td>\
+                        <td><a href=\'/{{ref}}\'>{{title}}</a></td>\
                         <td>{{date}}</td>\
-                        <td><a href=\'{{ref}}\' class=\'btn btn-sm btn-default\'>Read</a></td>\
+                        <td><a href=\'/{{ref}}\' class=\'btn btn-sm btn-default\'>Read</a></td>\
                     </tr>\
+                {{else}}\
+                    <h3>No results found!</h3>\
                 {{/each}}\
                 </tbody>\
             </table>'

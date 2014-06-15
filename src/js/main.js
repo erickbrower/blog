@@ -1,14 +1,14 @@
 'use strict';
 
 requirejs.config({
-  baseUrl: 'bower_components',
+  baseUrl: '/bower_components',
   paths: {
-    'components_ui': '../js/components_ui',
-    'components_data': '../js/components_data',
-    'page': '../js/page',
-    'lunr': '../js/lunr.min',
-    'async': '../js/async',
-    'handlebars': '../js/handlebars'
+    'components_ui': '/js/components_ui',
+    'components_data': '/js/components_data',
+    'page': '/js/page',
+    'lunr': '/js/lunr.min',
+    'async': '/js/async',
+    'handlebars': '/js/handlebars'
   },
   shim: {
       'handlebars': {

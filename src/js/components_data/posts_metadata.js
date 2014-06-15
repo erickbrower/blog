@@ -29,8 +29,14 @@ define(function(require) {
             var self = this,
                 refs = _.pluck(data.results, 'ref');
             this.syncPosts(refs, function(posts) {
+                var sorted = [];
+                _.each(data.results, function(result) {
+                    sorted.push(_.find(posts, function(post) {
+                        return post.ref === result.ref;
+                    }));
+                });
                 self.trigger('gotSearchResultsPosts', {
-                    results: posts
+                    results: sorted 
                 });
             });
         };
