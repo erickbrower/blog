@@ -12,15 +12,16 @@ define(function(require) {
 
         this.submit = function() {
             var terms = this.select('input').val();
-            this.trigger('searchSubmit', { terms: terms });
+            if(terms.length > 0) {
+                this.trigger('searchSubmit', { terms: terms });
+                $(this.attr.results).modal({ show: true });
+            }
         };
 
         this.submitOnEnterKey = function(ev) {
             if(ev.originalEvent.keyCode === 13) {
                 ev.preventDefault();
                 this.submit();
-                console.log('THINGS');
-                $(this.attr.results).modal({ show: true });
             }
         };
 
