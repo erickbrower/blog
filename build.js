@@ -13,6 +13,7 @@ var Metalsmith = require('metalsmith'),
 function forge() {
     new Metalsmith(__dirname)
         .metadata({
+            siteTitle: 'erickbrower\'s blog',
             headline: 'erickbrower',
             tagline: 'I write code. A lot.',
             author: 'Erick Brower <cerickbrower@gmail.com>',

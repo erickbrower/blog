@@ -14,4 +14,6 @@ ADD . /opt/blog
 
 RUN make build
 
+EXPOSE 8080
+
 CMD ["node", "server.js"]

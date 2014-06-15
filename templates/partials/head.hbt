@@ -7,7 +7,7 @@
     <meta name="description" content="{{siteDescription}}">
     <meta name="author" content="{{siteAuthor}}">
 
-    <title>{{title}}</title>
+    <title>{{siteTitle}}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
