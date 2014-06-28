@@ -1,19 +1,15 @@
 FROM erickbrower/nodejs
 
-RUN mkdir /opt/blog
+RUN mkdir /opt/app
+WORKDIR /opt/app
 
-ADD ./package.json /opt/blog
-ADD ./bower.json /opt/blog
+RUN npm install -g grunt-cli
 
-WORKDIR /opt/blog
+ADD . /opt/app
+RUN npm install
 
-RUN npm install 
-RUN bower install
+RUN grunt build
 
-ADD . /opt/blog
-
-RUN make build
-
-EXPOSE 8080
+EXPOSE 8081
 
 CMD ["node", "server.js"]
