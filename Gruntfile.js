@@ -16,19 +16,4 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['jshint', 'mochaTest']);
     grunt.registerTask('test', ['mochaTest']);
-
-    grunt.registerTask('build', 'Builds the app with Metalsmith', function() {
-        var fork = require('child_process').fork,
-            build = fork('./build'),
-            done = this.async();
-        build.on('close', function(code) {
-            if (code !== 0) {
-                grunt.log.error('There was an error with the build!');
-                grunt.log.error('Process returned code ' + code);
-            } else {
-                grunt.log.ok('Build finished!');
-            }
-            done();
-        });
-    });
 };

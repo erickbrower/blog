@@ -178,10 +178,10 @@ container, so any changes are reflected immediately without rebuilding.
 I Need to...           | So with Vagrant I ...
 ------------           | ---------------------
 Run a grunt task       | `vagrant docker-run app -- grunt my:task:here`
-See logs               | `vagrant docker-logs [app,db,redis]`
-Follow the log output  | `vagrant docker-logs [app,db,redis] -f`
+View/follow logs       | `vagrant docker-logs [app,db,redis] -f`
 Install an npm package | `vagrant docker-run app -- npm install thing --save`
 Get a REPL             | `vagrant docker-run app -t -- node`
+Get a shell            | `vagrant docker-run app -t -- /bin/bash`
 Restart everything     | `vagrant global-status`, find the ID for the Host VM in the list, `vagrant reload <the_id>`, then `vagrant up --provider=docker --no-parallel`
 
 I've noticed that I need to "restart everything" when I come back after closing my laptop, or when it sleeps. It will give errors about a stale NFS file handle at `/vagrant` in the host VM. I'd love to fully understand what's happening there, but it makes sense to have to restart in that case, and to me it's not a big deal. 

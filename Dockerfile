@@ -1,14 +1,19 @@
 FROM erickbrower/nodejs
 
-RUN mkdir /opt/app
-WORKDIR /opt/app
-
 RUN npm install -g grunt-cli
+RUN npm install -g bower
+
+RUN mkdir /opt/app
+
+ADD ./package.json /tmp/package.json
+RUN cd /tmp && npm install
 
 ADD . /opt/app
-RUN npm install
+RUN cp -a /tmp/node_modules /opt/app/
 
-RUN grunt build
+WORKDIR /opt/app
+RUN node build.js
+RUN bower install --allow-root
 
 EXPOSE 8081
 

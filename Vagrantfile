@@ -8,10 +8,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     d.vagrant_vagrantfile = 'VagrantHost'
   end
 
-  config.vm.define :app do |app|
-    app.vm.provider :docker do |d|
+  config.vm.define :app do |container|
+    container.vm.provider :docker do |d|
       d.build_dir = '.'
-      d.ports = ['8081:8081']
+      d.ports = %w{8081:8081}
+      d.env = {
+        PORT: '8081'
+      }
       d.cmd = %w{node server.js}
       d.remains_running = true
     end
