@@ -1,12 +1,18 @@
-When it comes to automating development environments, [Vagrant](http://www.vagrantup.com) is king, but until pretty recently it didn't have a [Docker](http://docker.io) provider or provisioner. I've got plenty of love for Vagrant, but in the last couple of years I've been using Docker along with excellent tools like [fig](http://orchardup.github.io/fig/) to manage my development environments -- cutting Vagrant out of the process completely. 
+---
+title: A Docker Dev Environment with Vagrant
+collection: posts
+template: post.hbt
+date: 2014-06-28
+---
 
-Now that Vagrant has a Docker provider, however, it's worth taking another look. It can handle tasks like creating a host VM for running the Docker server in Mac OS X, or defining the same environment using another provider like Virtualbox. So here's one approach for managing your Docker development environment with Vagrant. 
+When it comes to automating development environments, [Vagrant](http://www.vagrantup.com) is king. For the last couple of years I've been using [Docker](http://docker.io) along with excellent tools like [fig](http://orchardup.github.io/fig/) to manage my development environments -- cutting Vagrant out of the process completely. Now that Vagrant has a Docker provider, however, it's worth taking another look. It can handle tasks like creating a host VM for running the Docker server in Mac OS X, or defining the same environment using another provider like Virtualbox. So here's one approach for managing your Docker development environment with Vagrant. 
 
 ### The Plan
 
 I've got a Node.js app that depends on Redis and PostgreSQL. We'll need three containers -- one to run the app, and one for each of those services. Some goals for this setup are:
 
 * We need to **share the source code directory with the app container**, because we  don't want to have to rebuild the container image every time we change the code.
+* **It should be fast**. All the benefits of this kind of automation can be completely lost if every build or command takes minutes. We should take advantage of Docker's `VOLUME`s and layer caching, and try to offload as much provisioning into a base parent image as possible. 
 * We need to **link the Redis and PostgreSQL containers to the app container**, and [Docker accomplishes that with ENV vars](http://docs.docker.com/userguide/dockerlinks/). So we'll need to update the app's config 
 files to check for these new vars.
 * The app relies on some other ENV vars to do its thing, like `HIPCHAT_API_KEY` for Hipchat notifications, so we'll need **a secure, convenient way to include configuration values**.
@@ -39,9 +45,10 @@ files to check for these new vars.
 - VagrantHost
 
 ```
-
+A straightforward structure with a Vagrantfile and Dockerfile at the root. In this case I'll also be building the `db` container from a Dockerfile, using the `setup.sh` script to create the empty databases for the app. This is just my preference -- you might have a `rake` task that handles that. 
 
 ### The Vagrantfile
+
 ```
 VAGRANTFILE_API_VERSION ||= '2'
 
@@ -50,8 +57,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     d.vagrant_vagrantfile = './VagrantHost'
   end
 
-  config.vm.define :redis do |container|
-    container.vm.provider :docker do |d|
+  config.vm.define :redis do |redis|
+    redis.vm.provider :docker do |d|
       d.name = 'redis'
       d.image = 'erickbrower/redis:v2.8'
       d.remains_running = true
@@ -98,6 +105,7 @@ Ignore the `d.vagrant_vagrantfile = ./VagrantHost` line for just a moment. For n
       d.env = {
         HIPCHAT_API_KEY: ENV['HIPCHAT_API_KEY']
       }
+      d.cmd = %w{grunt nodemon}
     end
   end
 ```
@@ -110,16 +118,20 @@ FROM erickbrower/nodejs
 RUN apt-get update -qq
 RUN apt-get install -y postgresql-client
 
-RUN mkdir /opt/app
-WORKDIR /opt/app
-
 RUN npm install -g grunt-cli
+RUN npm install -g bower
+
+RUN mkdir /opt/app
+
+ADD ./package.json /tmp/package.json
+RUN cd /tmp && npm install
 
 ADD . /opt/app
-RUN npm install
+RUN cp -a /tmp/node_modules /opt/app/
 
-EXPOSE 8080
+WORKDIR /opt/app
 ```
+
 So the image is built from the Dockerfile, then a container is created and run with links, port, and environment variables. `d.volumes = ['/vagrant:/opt/app']` is important -- that's what will share our source code directory from the host VM into the container. But we still need to share that same directory from Mac OS X to the host VM in order for the container to have access to it. So it's time to create a host VM with `vagrant_vagrantfile`.
 
 ### The Host VM
