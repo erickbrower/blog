@@ -8,6 +8,14 @@
   "lib": {
     "src": ["./lib/**/*.js"]
   },
+  "components": {
+    "src": [
+      "./src/js/components_data/**/*.js",
+      "./src/js/components_ui/**/*.js",
+      "./src/js/page/**/*.js",
+      "./src/js/main.js"
+    ]
+  },
   "build": {
     "src": ["./build.js"]
   },
