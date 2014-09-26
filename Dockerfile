@@ -1,4 +1,9 @@
-FROM erickbrower/express
+FROM node:0.10.32
 
-RUN node build.js
-RUN bower install --allow-root
+RUN mkdir /opt/app
+WORKDIR /opt/app
+
+ADD . /opt/app
+RUN npm install
+
+CMD ["npm run deploy"]

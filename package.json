@@ -18,17 +18,19 @@
   "scripts": {
     "lint": "gulp lint",
     "build": "node build.js",
-    "bower": "./node_modules/bower/bin/bower install",
-    "start": "node server.js",
+    "bower": "./node_modules/bower/bin/bower install --allow-root",
+    "start": "node app.js",
     "deploy": "npm run build && npm run bower && npm run start"
   },
   "homepage": "http://erickbrower.com",
   "dependencies": {
     "async": "^0.9.0",
+    "bookshelf": "^0.7.7",
     "bower": "^1.3.11",
     "datejs": "^1.0.0-rc1",
     "express": "^4.4.0",
     "handlebars": "^2.0.0-alpha.4",
+    "knex": "^0.6.22",
     "lodash": "^2.4.1",
     "lunr": "^0.5.3",
     "metalsmith": "^0.8.0",
@@ -41,7 +43,8 @@
     "metalsmith-paginate": "^0.2.1",
     "metalsmith-permalinks": "^0.3.0",
     "metalsmith-templates": "^0.5.0",
-    "morgan": "^1.1.1"
+    "morgan": "^1.1.1",
+    "pg": "^3.4.4"
   },
   "devDependencies": {
     "gulp-jshint": "^1.8.4",
