@@ -31,3 +31,28 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter(stylish))
     .pipe(jshint.reporter('fail'))
 });
+
+gulp.task('db:migrate', function(done) {
+  var db = require('./config/db');
+  db.automigrate(function(err) {
+    if (err) { throw err; }
+    done();
+  });
+});
+
+gulp.task('db:update', function(done) {
+  var db = require('./config/db');
+  db.autoupdate(function(err) {
+    if (err) { throw err; }
+    done();
+  });
+});
+
+gulp.task('db:test:prepare', function(done) {
+  process.env.NODE_ENV = 'test';
+  var db = require('./config/db');
+  db.automigrate(function(err) {
+    if (err) { throw err; }
+    done();
+  });
+});

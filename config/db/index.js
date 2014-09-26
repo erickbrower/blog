@@ -1,7 +1,9 @@
-var config = require('./conf');
-
 var env = process.env.NODE_ENV || 'development';
 
-var knex = require('knex')(config[env]);
+var thing = require('./conf')[env];
 
-exports = require('bookshelf')(knex);
+var config = require('./conf')[env],
+  Schema = require('jugglingdb').Schema,
+  schema = new Schema('postgres', config);
+
+module.exports = schema;

@@ -1,22 +1,14 @@
 {
   "development": {
-    "client": "pg",
-    "connection": {
-      "host": "127.0.0.1",
-      "user": "erick",
-      "password": "",
-      "database": "blog_dev",
-      "charset": "utf8"
-    }
+    "host": "127.0.0.1",
+    "username": "erick",
+    "password": "",
+    "database": "blog_dev"
   },
   "test": {
-    "client": "pg",
-    "connection": {
-      "host": "127.0.0.1",
-      "user": "erick",
-      "password": "",
-      "database": "blog_test",
-      "charset": "utf8"
-    }
+    "host": "127.0.0.1",
+    "user": "erick",
+    "password": "",
+    "database": "blog_test"
   }
 }

@@ -1,10 +1,7 @@
 var express = require('express'),
   logger = require('morgan'),
   router = require('config/routes'),
-  db = require('config/db'),
   app = express();
-
-app.set('db', db);
 
 app.use(logger('short'));
 app.use(express.static(__dirname + '/public'));
