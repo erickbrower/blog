@@ -26,7 +26,7 @@ require(
         'flight/lib/debug'
     ],
     function(compose, registry, advice, withLogging, debug) {
-        debug.enable(true);
+        //debug.enable(true);
         compose.mixin(registry, [advice.withAdvice]);
 
         require(['page/default'], function(initializeDefault) {

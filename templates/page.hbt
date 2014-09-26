@@ -1,14 +1,14 @@
 {{> head}}
 <div class="container">
-{{> header}}
-    <div class="row">
-        <div class="col-sm-8 blog-main">
-            {{> post}}
-        </div>
-        <!-- /.blog-main -->
-        {{> sidebar}}
+  {{> header}}
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+      {{> post}}
     </div>
-    <!-- /.row -->
+    <!-- /.blog-main -->
+    {{> sidebar}}
+  </div>
+  <!-- /.row -->
 </div>
 <!-- /.container -->
 {{> search_results_modal}}

@@ -1,11 +1,11 @@
 <div class="blog-post">
-    <h2 class="blog-post-title">
-		<a href="/{{path}}" rel="bookmark">{{title}}</a>
-	</h2>
+  <h2 class="blog-post-title">
+    <a href="/{{path}}" rel="bookmark">{{title}}</a>
+  </h2>
 
-    <p class="blog-post-meta">{{formattedDate}} by <a href="/pages/about">Erick</a></p>
+  <p class="blog-post-meta">{{formattedDate}} by <a href="/pages/about">Erick</a></p>
 
-	{{{contents}}}
-	<br>
+  {{{contents}}}
+  <br>
 </div>
 <!-- /.blog-post -->

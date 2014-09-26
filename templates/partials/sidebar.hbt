@@ -1,13 +1,13 @@
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-    <div class="sidebar-module sidebar-module-inset">
-        {{> search_form}}
-    </div>
-    <div class="sidebar-module">
-        <h4>Elsewhere</h4>
-        <ol class="list-unstyled">
-            <li><a href="http://github.com/erickbrower">GitHub</a></li>
-            <li><a href="http://twitter.com/erickbrower">Twitter</a></li>
-        </ol>
-    </div>
+  <div class="sidebar-module sidebar-module-inset">
+    {{> search_form}}
+  </div>
+  <div class="sidebar-module">
+    <h4>Elsewhere</h4>
+    <ol class="list-unstyled">
+      <li><a href="http://github.com/erickbrower">GitHub</a></li>
+      <li><a href="http://twitter.com/erickbrower">Twitter</a></li>
+    </ol>
+  </div>
 </div>
 <!-- /.blog-sidebar -->

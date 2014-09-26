@@ -1,31 +1,31 @@
 {
-    "options": {
-        "jshintrc": "./.jshintrc"
-    },
-    "gruntfile": {
-        "src": "./Gruntfile.js"
-    },
-    "lib": {
-        "src": ["./lib/**/*.js"]
-    },
-    "components": {
-        "src": [
-            "./src/js/components_data/**/*.js", 
-            "./src/js/components_ui/**/*.js",
-            "./src/js/page/**/*.js",
-            "./src/js/main.js"
-        ]
-    },
-    "build": {
-        "src": ["./build.js"]
-    },
-    "spec": {
-        "src": ["./spec/**/*.js"]
-    },
-    "server": {
-        "src": ["./server.js"]
-    },
-    "packagejson": {
-        "src": ["./package.json"]
-    }
+  "options": {
+    "jshintrc": "./.jshintrc"
+  },
+  "gruntfile": {
+    "src": "./Gruntfile.js"
+  },
+  "lib": {
+    "src": ["./lib/**/*.js"]
+  },
+  "components": {
+    "src": [
+      "./src/js/components_data/**/*.js",
+      "./src/js/components_ui/**/*.js",
+      "./src/js/page/**/*.js",
+      "./src/js/main.js"
+    ]
+  },
+  "build": {
+    "src": ["./build.js"]
+  },
+  "spec": {
+    "src": ["./spec/**/*.js"]
+  },
+  "server": {
+    "src": ["./server.js"]
+  },
+  "packagejson": {
+    "src": ["./package.json"]
+  }
 }
