@@ -16,6 +16,7 @@
     "url": "https://github.com/erickbrower/blog/issues"
   },
   "scripts": {
+    "lint": "gulp lint",
     "build": "node build.js",
     "bower": "./node_modules/bower/bin/bower install",
     "start": "node server.js",
@@ -43,9 +44,9 @@
     "morgan": "^1.1.1"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-mocha-test": "^0.12.0",
+    "gulp-jshint": "^1.8.4",
+    "jshint": "^2.5.6",
+    "jshint-stylish": "^1.0.0",
     "mocha": "^1.21.4"
   }
 }
