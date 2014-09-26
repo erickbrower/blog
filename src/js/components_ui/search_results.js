@@ -1,15 +1,15 @@
 define(function(require) {
-    var defineComponent = require('flight/lib/component'),
-        Handlebars = require('handlebars');
+  var defineComponent = require('flight/lib/component'),
+      Handlebars = require('handlebars');
 
-    return defineComponent(searchResults);
+  return defineComponent(searchResults);
 
-    function searchResults() {
-        /*jshint multistr: true */
-        this.defaultAttrs({
-            title: '.modal-title',
-            body: '.modal-body',
-            template: '<table class=\'table table-hover table-condensed\'>\
+  function searchResults() {
+    /*jshint multistr: true */
+    this.defaultAttrs({
+      title: '.modal-title',
+      body: '.modal-body',
+      template: '<table class=\'table table-hover table-condensed\'>\
                 <thead>\
                     <tr>\
                         <th>Title</th>\
@@ -31,17 +31,19 @@ define(function(require) {
                 {{/each}}\
                 </tbody>\
             </table>'
-        });
-        /*jshint multistr: false */
+    });
+    /*jshint multistr: false */
 
-        this.render = function(ev, data) {
-            var tpl = Handlebars.compile(this.attr.template),
-                html = tpl({ results: data.results });
-            this.select('body').html(html);
-        };
-
-        this.after('initialize', function() {
-            this.on(document, 'gotSearchResultsPosts', this.render);
+    this.render = function(ev, data) {
+      var tpl = Handlebars.compile(this.attr.template),
+        html = tpl({
+          results: data.results
         });
-    }
+      this.select('body').html(html);
+    };
+
+    this.after('initialize', function() {
+      this.on(document, 'gotSearchResultsPosts', this.render);
+    });
+  }
 });
