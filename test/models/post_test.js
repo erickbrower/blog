@@ -1,35 +1,23 @@
-require('../test_helper');
-
-var assert = require('assert'),
+var helper = require('../test_helper'),
+  assert = require('assert'),
   _ = require('lodash'),
-  Post = require('../../models').Post;
+  Post = require('../../models').models.Post;
 
 describe('saving a new Post', function() {
-  var attributes = {
-    title: 'test post',
-    body: 'blah blah blah'
-  };
-
   describe('with valid attributes', function() {
-    beforeEach(function(done) {
-      Post.destroyAll(function() {
-        done();
-      });
-    });
-
     it('should save successfully', function() {
-      Post.create(attributes, function(err, post) {
-        assert(!err, 'Errors were generated during create');
+      Post.create(helper.factories.Post(), function(err, post) {
+        assert.equal(err, undefined)
       });
     });
   });
 
   describe('with invalid attributes', function() {
     it('should fail if title is not present', function() {
-      var badAttrs = _.clone(attributes);
-      delete badAttrs['title']
-      Post.create(badAttrs, function(err) {
-        assert(err, 'Error was not generated during save');
+      var attrs = helper.factories.Post();
+      delete attrs['title']
+      Post.create(attrs, function(err) {
+        assert(err);
       });
     });
   });
