@@ -12,4 +12,5 @@ Category.hasMany(Post, {
   foreignKey: 'postId'
 });
 
-module.exports = db.models;
+module.exports.db = db;
+module.exports.models = db.models;

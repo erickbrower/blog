@@ -1,18 +1,10 @@
 require('../test_helper');
 
-var db = require('../../config/db'),
-  assert = require('assert'),
+var assert = require('assert'),
   _ = require('lodash'),
   Post = require('../../models').Post;
 
 describe('saving a new Post', function() {
-  before(function(done) {
-    db.automigrate(function(err) {
-      if (err) throw err;
-      done();
-    });
-  });
-
   var attributes = {
     title: 'test post',
     body: 'blah blah blah'

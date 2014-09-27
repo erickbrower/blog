@@ -1,11 +1,19 @@
 var postsController = require('../controllers/posts');
 
-exports.route = function(app) {
-  app.param(':post_id', postsController.params.postId);
+var router = require('express').Router();
 
-  app.get('/posts', postsController.index);
-  app.get('/posts/:post_id', postsController.show);
-  app.post('/posts', postsController.create);
-  app.put('/posts/:post_id', postsController.update);
-  app.delete('/posts/:post_id', postsController.destroy);
+exports.route = function(app) {
+
+  router.param('post_id', postsController.params.postId);
+
+  router.route('/posts')
+    .get(postsController.index)
+    .post(postsController.create);
+
+  router.route('/posts/:post_id')
+    .get(postsController.show)
+    .put(postsController.update)
+    .delete(postsController.destroy);
+
+  app.use('/api', router);
 };

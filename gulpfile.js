@@ -33,17 +33,17 @@ gulp.task('lint', function() {
 });
 
 gulp.task('db:migrate', function(done) {
-  var db = require('./config/db');
+  var db = require('./models').db;
   db.automigrate(function(err) {
-    if (err) { throw err; }
+    if (err) { return done(err); }
     done();
   });
 });
 
 gulp.task('db:update', function(done) {
-  var db = require('./config/db');
+  var db = require('./models').db;
   db.autoupdate(function(err) {
-    if (err) { throw err; }
+    if (err) { return done(err); }
     done();
   });
 });
@@ -54,5 +54,12 @@ gulp.task('db:test:prepare', function(done) {
   db.automigrate(function(err) {
     if (err) { throw err; }
     done();
+  });
+});
+
+//Ends task processes that hang after completing
+gulp.on('stop', function () {
+  process.nextTick(function () {
+    process.exit(0);
   });
 });
